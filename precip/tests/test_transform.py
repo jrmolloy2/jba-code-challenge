@@ -1,6 +1,6 @@
 import unittest
 from datetime import datetime
-from precip.precip.transform import transform_data, convert_to_df
+from precip.etl.transform import transform_data, convert_to_df
 from precip.config import TEST_FILE
 
 

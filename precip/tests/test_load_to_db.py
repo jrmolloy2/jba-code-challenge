@@ -2,7 +2,7 @@ import unittest
 import os
 import pandas as pd
 from datetime import datetime
-from precip.precip.load_to_db import _create_connection, write_to_db, dump_to_json
+from precip.etl.load_to_db import _create_connection, write_to_db, dump_to_json
 from precip.config import RESOURCES
 
 MOCK_DB = os.path.join(RESOURCES, "temp.db")
