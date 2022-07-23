@@ -1,6 +1,6 @@
 import re
 from datetime import datetime
-from precip.precip.string_utils import remove_whitespace
+from precip.precip.utils import remove_whitespace
 
 
 def get_year_range(line):
@@ -29,7 +29,6 @@ def get_grid_ref_values(line):
     try:
         no_whitespace = remove_whitespace(line)
     except TypeError as exc:
-        print(exc)
         return None, None
     else:
         pattern = re.compile("\d+,\d+")
@@ -39,3 +38,15 @@ def get_grid_ref_values(line):
             return int(split_by_comma[0]), int(split_by_comma[1])
         else:
             raise ValueError("Grid references could not be parsed.")
+
+
+def get_data_values(line, missing_value):
+    try:
+        values = [int(x) for x in line.split()]
+    except ValueError as exc:
+        raise exc
+    else:
+        for ix, value in enumerate(values):
+            if value == missing_value:
+                values[ix] = None
+        return values

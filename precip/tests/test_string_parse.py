@@ -1,7 +1,7 @@
 import unittest
 from datetime import datetime
 from precip.precip.string_parse import get_year_range, get_missing_data_value, \
-    get_grid_ref_values
+    get_grid_ref_values, get_data_values
 
 
 class TestGetYearRange(unittest.TestCase):
@@ -55,6 +55,23 @@ class TestGetGridRefValues(unittest.TestCase):
         test_line = "Grid-ref=           "
         with self.assertRaises(ValueError):
             get_grid_ref_values(test_line)
+
+
+class TestGetDataValues(unittest.TestCase):
+
+    def test_get_data_values_valid(self):
+        test_line = " 3020 2820 3040 2880 1740 1360  980  990 1410 1770 2580 2630"
+        expected = [3020, 2820, 3040, 2880, 1740, 1360, 980, 990, 1410, 1770, 2580, 2630]
+        self.assertEqual(expected, get_data_values(test_line, -999))
+
+    def test_get_data_values_valid_with_missing_value(self):
+        test_line = "  -999  2010 193 4576"
+        self.assertEqual([None, 2010, 193, 4576], get_data_values(test_line, -999))
+
+    def test_get_data_values_invalid_not_space_delimited(self):
+        test_line = "3020;2820;3040;2880;1740"
+        with self.assertRaises(ValueError):
+            get_data_values(test_line, -999)
 
 
 if __name__ == '__main__':
