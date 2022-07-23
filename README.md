@@ -9,13 +9,13 @@ into a database with the following structure:
 |------|------|------|-------|
 | 1 | 311 | 01/01/1991 | 320 |
 
-I made the following assumptions 
+I made the following assumptions:
 
 - All precipitation files (.pre) would be structured the same. For example, I assumed that the flags such as 'Grid-ref=', 'Years=' and 'Missing=' would be the same for all .pre files.
 - Although the example file provided can be read into memory without issues, I assumed that different time periods could be selected to export the precipitation file (e.g. more than ten years) so I chose a solution that would iterate over the file instead.
 - All measurements are in millimetres.
 
-To extract the relevant data, I used a combination of regex and string methods to transform the information in a JSON-like list of dictionaries (as shown in the example below).
+To extract the relevant data, I used a combination of regex and string methods to transform the information into a JSON-like list of dictionaries (as shown in the example below).
 
 ```python
 example_data = [
@@ -38,7 +38,12 @@ Although this file did not appear to have any missing data, I made the assumptio
 
 I chose to output the data into a sqlite database as this was the simplest, 'on the fly' option to demonstrate how it could be written to a database. I also chose to export the data to a zipped json file as this can be transported between different systems easily.
 
-I have included a 'resources' folder containing the example file stored on the JBA Software website.
+I have included a 'resources' folder containing the example file stored on the JBA Software website and the outputs from the program run by me. The outputs are:
+
+- precip.db - the sqlite database
+- precip.zip - the json file
+
+The sqlite database can be viewed for free online at [SQLViewer](https://inloop.github.io/sqlite-viewer/).
 
 ## Project setup
 
@@ -53,10 +58,3 @@ The package can also be run by executing the __main__.py script in an IDE.
 When the package is run, it will first ask you to enter the path of the precipitation file to be transformed. The full filepath, including extension, should be entered without quotation marks. The script will then ask for a location to save the output files. Again, this should be the full filepath to a directory of your choice without quotation marks.
 
 If the package executes successfully, you will see a message telling you the data has been written to the database successfully.
-
-The output based on the test file provided on JBA's website is stored in the resources folder:
-
-- precip.db - the sqlite database
-- precip.zip - the json file
-
-The sqlite database can be viewed for free online at [SQLViewer](https://inloop.github.io/sqlite-viewer/).
