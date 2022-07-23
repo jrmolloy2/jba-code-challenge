@@ -1,6 +1,17 @@
 import re
-from datetime import datetime
-from precip.precip.utils import remove_whitespace
+
+
+def remove_whitespace(line):
+    if not isinstance(line, str):
+        raise TypeError("The argument passed must be a string.")
+    return re.sub("\s", "", line)
+
+
+def calculate_number_of_years(start_date, end_date):
+    if isinstance(start_date, int) and isinstance(end_date, int):
+        return (end_date - start_date) + 1
+    else:
+        raise TypeError("Dates passed must be integers.")
 
 
 def get_year_range(line):
@@ -8,8 +19,8 @@ def get_year_range(line):
     match = pattern.search(line)
     if match:
         dates = match.group()[6:].split("-")
-        start_date = datetime(int(dates[0]), 1, 1)
-        end_date = datetime(int(dates[1]), 12, 1)
+        start_date = int(dates[0])
+        end_date = int(dates[1])
         return start_date, end_date
     else:
         raise ValueError("The date range for the file could not be found.")
@@ -22,7 +33,8 @@ def get_missing_data_value(line):
     if match:
         return int(match.group()[8:])
     else:
-        raise ValueError("The missing data value could not be parsed.")
+        print("Missing data value could not be found. Assume value to be -999.")
+        return -999
 
 
 def get_grid_ref_values(line):
@@ -43,8 +55,8 @@ def get_grid_ref_values(line):
 def get_data_values(line, missing_value):
     try:
         values = [int(x) for x in line.split()]
-    except ValueError as exc:
-        raise exc
+    except ValueError:
+        raise ValueError("Data values could not be parsed.")
     else:
         for ix, value in enumerate(values):
             if value == missing_value:
