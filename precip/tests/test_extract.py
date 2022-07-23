@@ -1,5 +1,5 @@
 import unittest
-from precip.precip.extract import remove_whitespace, calculate_number_of_years, get_year_range, get_missing_data_value, \
+from precip.etl.extract import remove_whitespace, calculate_number_of_years, get_year_range, get_missing_data_value, \
     get_grid_ref_values, get_data_values
 
 
