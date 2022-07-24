@@ -55,6 +55,6 @@ The package can be run by opening a terminal in the top level directory (i.e. th
 
 The package can also be run by executing the __main__.py script in an IDE.
 
-When the package is run, it will first ask you to enter the path of the precipitation file to be transformed. The full filepath, including extension, should be entered without quotation marks. The script will then ask for a location to save the output files. Again, this should be the full filepath to a directory of your choice without quotation marks.
+When the package is run, it will first launch a browser window asking you to select the precipitation file to be transformed. On clicking OK, a second browser window will be launched asking you to select the directory where the outputs will be saved. On clicking OK, the transformation will be performed.
 
 If the package executes successfully, you will see a message telling you the data has been written to the database successfully.
