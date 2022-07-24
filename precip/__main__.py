@@ -6,6 +6,7 @@ and a zipped json object.
 """
 
 import os
+from precip.browser import get_user_input
 from precip.etl.transform import transform_data, convert_to_df
 from precip.etl.load_to_db import write_to_db, dump_to_json
 
@@ -14,8 +15,7 @@ def run():
     """Executes the precip package."""
 
     # Get the filepath information from the user
-    filepath = input("Enter the filepath of the precipitation file: ")
-    output_path = input("Enter the folder to save the outputs to: ")
+    filepath, output_path = get_user_input()
 
     # Create the output filepaths where the data will be written to
     sql_path = os.path.join(output_path, "precip.db")
